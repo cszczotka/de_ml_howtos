@@ -13,3 +13,25 @@ eventhub = eventhub.withColumn("payload", F.regexp_replace("payload", "undefined
 df = spark.createDataFrame([1,2,3,-1], IntegerType()).toDF("col1")
 df2 = = spark.createDataFrame(["a","b","c"], StringType()).toDF("col1")
 ```
+
+### How to create few column dataframe
+
+```python
+from pyspark.sql.types import StructField, LongType, StringType, IntegerType, DateType, TimestampType, DoubleType, FloatType, StructType
+from datetime import date
+def load_scoring_dataset(p_mdl_name, p_spark):
+    schema = StructType([       
+        StructField('id', StringType(), True),
+        StructField('eff_dt', DateType(), True)
+    ])
+    
+    data = [(1000, date(2024,8,7)), 
+            (1001, date(2024,8,7)), 
+            (1002, date(2024,8,7))]
+    
+    df = p_spark.createDataFrame(data, schema).toDF('id', 'eff_dt')
+    return df
+
+def score_model(mdl_name, df, mdl_role_tp_value, spark):
+    return
+```
