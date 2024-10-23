@@ -1,1 +1,1 @@
-Test-NetConnection -ComputerName slowtrackdevstoragedls.dfs.core.windows.net -Port 443
+Test-NetConnection -ComputerName test.dfs.core.windows.net -Port 443
