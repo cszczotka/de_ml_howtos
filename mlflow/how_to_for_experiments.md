@@ -16,3 +16,15 @@ for exp in all_experiments:
 ### Get model flow version
 ```python
 ```
+
+### Get runId artefacts
+
+```python
+from mlflow.store.artifact.runs_artifact_repo import RunsArtifactRepository
+RunsArtifactRepository("runs:/44d40c3e551f498d9810631a588a5a46").list_artifacts('model')
+```
+
+### Get runId properties
+```python
+mlflow.get_run('44d40c3e551f498d9810631a588a5a46').to_dictionary()
+```
