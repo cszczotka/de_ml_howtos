@@ -47,3 +47,5 @@ LEFT OUTER JOIN sys.database_principals AS DP2 ON DRM.member_principal_id = DP2.
 WHERE DP1.type = 'R'
 ORDER BY DP1.name, ISNULL(DP2.name, 'No members');
 ```
+
+
