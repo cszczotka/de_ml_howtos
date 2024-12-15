@@ -35,3 +35,22 @@ def load_scoring_dataset(p_mdl_name, p_spark):
 def score_model(mdl_name, df, mdl_role_tp_value, spark):
     return
 ```
+
+### Hpw to create dataframe using rdd
+
+```python
+# Creating DataFrames - Use RDD
+from pyspark.sql.types import StructType, IntegerType, StringType
+
+# Data as a list of tuples
+data = [("James", 34), ("Anna", 20), ("Lee", 30)]
+
+# Use RDD
+rdd = spark.sparkContext.parallelize(data)
+schema = StructType([
+    StructField("Name", StringType(), True),
+    StructField("Age", IntegerType(), True)
+])
+df = spark.createDataFrame(rdd, schema=schema)
+df.show()
+```
