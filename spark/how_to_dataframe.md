@@ -54,3 +54,11 @@ schema = StructType([
 df = spark.createDataFrame(rdd, schema=schema)
 df.show()
 ```
+
+
+### How to check if column exist in Spark and Pandas data frame
+
+```python
+"f128" in df.columns
+ 
+```
