@@ -14,3 +14,9 @@ secret = dbutils.secrets.get("scope", "secret")
 plaintextSecret = secret.replace("", invisible_sep)
 print(secret)  # would print "[REDACTED]"
 print(plaintextSecret)  # would print "intg"
+
+
+
+### How to add new secret 
+
+databricks secrets put-secret sscope-kv-npa-dwb-dev-westeu-1 kafka-truststore-password -p xxx
