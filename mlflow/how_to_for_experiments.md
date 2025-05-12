@@ -54,3 +54,65 @@ with zipfile.ZipFile(output_zip_file, 'w') as zipf:
             zipf.write(file_path, arcname)
 
 ```
+
+
+### Pass spark session to external python script
+
+MLproject
+
+```yml
+name: mlflow_test
+python_version: "3.11.11"
+
+entry_points:
+  main:
+    parameters:
+      cluster_id: {type: string}
+    command: "python main.py --cluster_id {cluster_id}"    
+```
+
+main.py
+
+```python
+import argparse
+import sys
+
+from databricks.connect import DatabricksSession
+from databricks.sdk import WorkspaceClient
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--cluster_id", type=str)
+args = parser.parse_args()
+
+wc = WorkspaceClient()
+
+spark = DatabricksSession.builder.remote(
+    host = wc.config.host,
+    token = wc.config.token,
+    cluster_id = args.cluster_id
+).getOrCreate()
+
+print(f"{spark.version}")
+
+test = spark.createDataFrame([('A','B')])
+print(test.show())
+```
+
+Notebook where we run mlflow
+
+```python
+
+import mlflow
+
+experiment_name = "/Workspace/Users/some_user/plk/my_mlflow_test"
+                  
+params = {"cluster_id": "0312-124905-kf00kdcy"}
+
+mlflow.projects.run (
+    uri='.',
+    experiment_name=experiment_name,
+    env_manager="local",
+    parameters=params
+)
+
+```
